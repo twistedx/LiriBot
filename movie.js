@@ -4,7 +4,11 @@ const chalk = require("chalk");
 function Movie(term) {
   this.term = term;
 
-  this.movieSearch = function(term) {
+  if (term == "") {
+    term = "avatar";
+  }
+
+  this.movieSearch = function() {
     axios
       .get(
         "http://www.omdbapi.com/?t=" + term + "&y=&plot=short&apikey=trilogy"

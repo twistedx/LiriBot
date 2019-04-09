@@ -7,6 +7,10 @@ const chalk = require("chalk");
 function spot(term) {
   this.term = term;
 
+  if (term == "") {
+    term = "Sexual Healing";
+  }
+
   this.Ssearch = function() {
     spotify.search({ type: "track", query: term, limit: 1 }, function(
       err,

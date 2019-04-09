@@ -4,6 +4,11 @@ var moment = require("moment");
 
 var BandInTown = function(term) {
   this.term = term;
+
+  if (term == "") {
+    term = "cher";
+  }
+
   var bitURL =
     "https://rest.bandsintown.com/artists/" +
     term +

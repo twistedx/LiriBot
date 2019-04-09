@@ -9,13 +9,13 @@ var term = process.argv.slice(3).join(" ");
 function startIt() {
   if (search === "concert-this") {
     var Btown = new Bit(term);
-    Btown.concertThis(term);
+    Btown.concertThis();
   } else if (search === "spotify-this-song") {
     var spot = new Spot(term);
     spot.Ssearch();
   } else if (search === "movie-this") {
     var movie = new Movie(term);
-    movie.movieSearch(term);
+    movie.movieSearch();
     console.log("movie");
   } else if (search === "do-what-it-says") {
     doWhatItSays();
