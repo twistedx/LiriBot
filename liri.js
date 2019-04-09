@@ -1,39 +1,38 @@
-require("dotenv").config();
-var axios = require("axios");
-var moment = require("moment");
-var keys = require("./keys.js");
-var bit = require("./bit");
-var Spotify = require("node-spotify-api");
-var spotify = new Spotify(keys.spotify);
+var Bit = require("./bit");
+var Spot = require("./spot");
+var Movie = require("./movie");
 var fs = require("fs");
 
 var search = process.argv[2];
-var term = process.argv.splice(3, 0).join(" ");
+var term = process.argv.slice(3).join(" ");
 
 function startIt() {
   if (search === "concert-this") {
-    var Btown = new bit(term);
+    var Btown = new Bit(term);
     Btown.concertThis(term);
   } else if (search === "spotify-this-song") {
-    console.log("Spot");
+    var spot = new Spot(term);
+    spot.Ssearch();
   } else if (search === "movie-this") {
+    var movie = new Movie(term);
+    movie.movieSearch(term);
     console.log("movie");
   } else if (search === "do-what-it-says") {
-    console.log("simon says");
+    doWhatItSays();
   } else {
     console.log("Yeah no it didnt work");
   }
 }
-var BandInTown = function() {
-  var bitURL =
-    "https://rest.bandsintown.com/artists/" +
-    term +
-    "/events?app_id=codingbootcamp";
-  this.concertThis = function() {
-    axios.get(bitURL).then(function(response) {
-      console.log(response);
-    });
-  };
-};
 
-startIt();
+function doWhatItSays() {
+  fs.readFile("random.txt", "utf8", function(err, response) {
+    if (err) {
+      console.log(err);
+    }
+    let file = response.split(",");
+    search = file[0];
+    term = file[1];
+    startIt();
+  });
+}
+startIt(search, term);
